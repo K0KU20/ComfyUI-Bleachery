@@ -1,6 +1,6 @@
 # ComfyUI-Bleachery
 
-[English](README_EN.md) | 繁體中文
+[English](README.md) | 繁體中文
 
 去除圖片黃色偏色（白平衡校正）的 ComfyUI 自訂節點。
 
