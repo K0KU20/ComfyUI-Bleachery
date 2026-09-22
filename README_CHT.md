@@ -42,7 +42,7 @@
 ### 方法二：ComfyUI Manager
 
 若已安裝 [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager)，
-可透過 Manager 搜尋 `ComfyUI-Bleachery` 並直接安裝（前提是已提交到節點清單）。
+可透過 Manager 搜尋 `ComfyUI-Bleachery` 並直接安裝。
 
 ## 🚀 使用方式
 
