@@ -1,6 +1,6 @@
 # ComfyUI-Bleachery
 
-English | [繁體中文](README_CHT.md)
+English | [繁體中文](README.md)
 
 A ComfyUI custom node that removes yellow color cast (white balance correction) from images.
 
@@ -33,7 +33,7 @@ Original (yellow tint) ──▶ Bleachery ──▶ Corrected (neutral tone)
    ```
 2. Clone this repo:
    ```bash
-   git clone https://github.com/K0KU20/ComfyUI-Bleachery.git
+   git clone https://github.com/<your-username>/ComfyUI-Bleachery.git
    ```
 3. Install dependencies:
    ```bash
@@ -45,7 +45,8 @@ Original (yellow tint) ──▶ Bleachery ──▶ Corrected (neutral tone)
 ### Option 2: ComfyUI Manager
 
 If you have [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager) installed,
-you can search for `ComfyUI-Bleachery` and install it directly from there.
+you can search for `ComfyUI-Bleachery` and install it directly from there (once the
+node is listed in the manager's registry).
 
 ## 🚀 Usage
 
@@ -63,10 +64,28 @@ Load Image → Bleachery → Save Image
 
 ### Node parameters
 
-| Parameter  | Type    | Default | Description                                        |
-|------------|---------|---------|-----------------------------------------------------|
-| `image`    | IMAGE   | -       | Input image(s) to process. Supports batches.        |
-| `strength` | FLOAT   | 0.8     | De-yellow strength, range 0.0–2.0. Higher = stronger.|
+| Parameter  | Type    | Required | Default | Description                                                                 |
+|------------|---------|----------|---------|-------------------------------------------------------------------------------|
+| `image`    | IMAGE   | yes      | -       | Input image(s) to process. Supports batches and RGBA images with alpha.       |
+| `strength` | FLOAT   | yes      | 0.8     | De-yellow strength, range 0.0–2.0. Higher = stronger.                         |
+| `mask`     | MASK    | no       | -       | Opacity mask (e.g. from a background-removal node). When connected, the correction is only applied to opaque pixels, leaving the transparent background untouched. |
+
+**Outputs**: `image` (processed image), `mask` (passed through unchanged, so you can wire it into whatever needs it next — compositing, saving as a transparent PNG, etc.)
+
+### 🖼️ Working with cut-out / transparent-background images
+
+If your source image already has its background removed, connect the `mask`
+output from your cutout node into `Bleachery`'s `mask` input as well:
+
+```
+Load Image / cutout node ──(image)──▶ Bleachery ──(image)──▶ Save Image
+                  └───────(mask)──────▶      │
+                                              └──(mask)──▶ (wire to other nodes as needed)
+```
+
+This avoids two common problems:
+- The transparent background being mistaken for a color cast and turning into a strange magenta tint
+- The alpha (transparency) information being lost during processing, so the output loses its transparent background
 
 ## 🧪 How it works
 
@@ -112,3 +131,8 @@ This project is licensed under the [MIT License](LICENSE).
 
 The core white balance algorithm is based on B-channel offset correction in LAB
 color space.
+
+## 📝 Changelog
+
+- **v1.1**: Added support for transparent-background / cut-out images. The node now handles RGBA images with an alpha channel and adds an optional `mask` input so the correction is only applied to opaque pixels — fixing the transparent background turning magenta and the output losing its transparency layer.
+- **v1.0**: Initial release.

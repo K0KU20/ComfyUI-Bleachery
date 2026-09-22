@@ -1,5 +1,7 @@
 # ComfyUI-Bleachery
 
+[English](README_EN.md) | 繁體中文
+
 去除圖片黃色偏色（白平衡校正）的 ComfyUI 自訂節點。
 
 透過將圖片轉換到 LAB 色彩空間，分析 B（藍-黃）通道的平均偏移量，
@@ -30,7 +32,7 @@
    ```
 2. Clone 本專案：
    ```bash
-   git clone https://github.com/K0KU20/ComfyUI-Bleachery.git
+   git clone https://github.com/<your-username>/ComfyUI-Bleachery.git
    ```
 3. 安裝相依套件：
    ```bash
@@ -42,7 +44,7 @@
 ### 方法二：ComfyUI Manager
 
 若已安裝 [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager)，
-可透過 Manager 搜尋 `ComfyUI-Bleachery` 並直接安裝。
+可透過 Manager 搜尋 `ComfyUI-Bleachery` 並直接安裝（前提是已提交到節點清單）。
 
 ## 🚀 使用方式
 
@@ -60,10 +62,27 @@ Load Image → Bleachery → Save Image
 
 ### 節點參數
 
-| 參數名稱   | 類型    | 預設值 | 說明                                   |
-|------------|---------|--------|----------------------------------------|
-| `image`    | IMAGE   | -      | 要處理的輸入圖片，支援 batch           |
-| `strength` | FLOAT   | 0.8    | 去黃強度，範圍 0.0–2.0，數值越大效果越強 |
+| 參數名稱   | 類型    | 必填 | 預設值 | 說明                                                         |
+|------------|---------|------|--------|--------------------------------------------------------------|
+| `image`    | IMAGE   | 是   | -      | 要處理的輸入圖片，支援 batch，也支援帶 alpha 的 RGBA 圖片      |
+| `strength` | FLOAT   | 是   | 0.8    | 去黃強度，範圍 0.0–2.0，數值越大效果越強                      |
+| `mask`     | MASK    | 否   | -      | 透明度遮罩（例如去背節點輸出的 mask）。接上之後，校正只會套用在不透明區域，透明背景不受影響 |
+
+**輸出**：`image`（處理後圖片）、`mask`（原樣輸出，方便接續接到需要 mask 的節點，例如合成或存成透明 PNG）
+
+### 🖼️ 去背 / 透明背景圖片
+
+如果來源圖片已經去背（帶透明背景），請把去背節點輸出的 `mask` 一併接到 `Bleachery` 的 `mask` 輸入：
+
+```
+Load Image / 去背節點 ──(image)──▶ Bleachery ──(image)──▶ Save Image
+              └──────(mask)───────▶      │
+                                          └──(mask)──▶ （視需要接到其他節點）
+```
+
+這樣可以避免兩個常見問題：
+- 透明背景被誤判成需要校正的顏色，導致背景變成怪異的紫紅色
+- alpha（透明）資訊在處理過程中遺失，輸出圖片變成沒有透明背景
 
 ## 🧪 運作原理
 
@@ -107,3 +126,8 @@ ComfyUI-Bleachery/
 ## 🙏 致謝
 
 核心白平衡演算法基於 LAB 色彩空間的 B 通道偏移校正概念實作。
+
+## 📝 更新紀錄
+
+- **v1.1**：新增透明背景 / 去背圖片支援。節點現在能處理帶 alpha 通道的 RGBA 圖片，並新增選填的 `mask` 輸入，讓校正只作用在不透明區域，修正透明背景被誤染成紫紅色、以及輸出遺失透明圖層的問題。
+- **v1.0**：初版釋出。
