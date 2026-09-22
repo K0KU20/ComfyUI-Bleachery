@@ -1,6 +1,6 @@
 # ComfyUI-Bleachery
 
-English | [繁體中文](README.md)
+English | [繁體中文](README_CHT.md)
 
 A ComfyUI custom node that removes yellow color cast (white balance correction) from images.
 
