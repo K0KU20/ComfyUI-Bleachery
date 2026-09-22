@@ -33,7 +33,7 @@ Original (yellow tint) ──▶ Bleachery ──▶ Corrected (neutral tone)
    ```
 2. Clone this repo:
    ```bash
-   git clone https://github.com/<your-username>/ComfyUI-Bleachery.git
+   git clone https://github.com/K0KU20/ComfyUI-Bleachery.git
    ```
 3. Install dependencies:
    ```bash
