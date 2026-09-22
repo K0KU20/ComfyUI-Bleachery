@@ -30,7 +30,7 @@
    ```
 2. Clone 本專案：
    ```bash
-   git clone https://github.com/<your-username>/ComfyUI-Bleachery.git
+   git clone https://github.com/K0KU20/ComfyUI-Bleachery.git
    ```
 3. 安裝相依套件：
    ```bash
