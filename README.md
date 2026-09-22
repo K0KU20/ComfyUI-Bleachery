@@ -45,8 +45,7 @@ Original (yellow tint) ──▶ Bleachery ──▶ Corrected (neutral tone)
 ### Option 2: ComfyUI Manager
 
 If you have [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager) installed,
-you can search for `ComfyUI-Bleachery` and install it directly from there (once the
-node is listed in the manager's registry).
+you can search for `ComfyUI-Bleachery` and install it directly from there.
 
 ## 🚀 Usage
 
