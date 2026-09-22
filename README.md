@@ -33,7 +33,7 @@ Original (yellow tint) ──▶ Bleachery ──▶ Corrected (neutral tone)
    ```
 2. Clone this repo:
    ```bash
-   git clone https://github.com/<your-username>/ComfyUI-Bleachery.git
+   git clone https://github.com/K0KU20/ComfyUI-Bleachery.git
    ```
 3. Install dependencies:
    ```bash
@@ -45,8 +45,7 @@ Original (yellow tint) ──▶ Bleachery ──▶ Corrected (neutral tone)
 ### Option 2: ComfyUI Manager
 
 If you have [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager) installed,
-you can search for `ComfyUI-Bleachery` and install it directly from there (once the
-node is listed in the manager's registry).
+you can search for `ComfyUI-Bleachery` and install it directly from there.
 
 ## 🚀 Usage
 
